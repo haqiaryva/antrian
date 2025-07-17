@@ -1,0 +1,39 @@
+### Menambahkan List Antrian (input R untuk Reservasi dan W untuk Walk In)
+POST http://127.0.0.1:8000/api/queue
+Content-Type: application/json
+
+{
+  "type": "W" 
+}
+
+### Membuat Status Staff Menjadi Aktif
+POST http://127.0.0.1:8000/api/staff/2/activate
+
+### Membuat Status Staff Menjadi Tidak Aktif
+POST http://127.0.0.1:8000/api/staff/2/deactivate
+
+### Mengambil Status Staff untuk Sinkronisasi
+GET http://127.0.0.1:8000/api/staff/2/status
+
+### Menadapatkan Nomer Antrian Selanjutnya
+GET http://127.0.0.1:8000/api/queue/next
+
+### Memanggil Antrian Secara Manual Jika Staff Request
+POST http://127.0.0.1:8000/api/queue/request
+Content-Type: application/json
+
+{
+  "staff_id": 2
+}
+
+### Mengubah Status Antrian Menjadi Done
+POST http://127.0.0.1:8000/api/queue/finish
+Content-Type: application/json
+
+{
+  "staff_id": 1,
+  "queue_id": 15
+}
+
+### Mendapatkan Jumlah Antrian yang Masih Waiting, Staff yang Aktif, dan Rata-Rata Waktu Pelayanan Per Staff
+GET http://127.0.0.1:8000/api/dashboard
