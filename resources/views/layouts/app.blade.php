@@ -4,57 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Antrian Digital</title>
-    <link rel="icon" type="image/png" href="{{ asset('unnamed.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('indibiz.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900">
-    <nav class="bg-white shadow flex items-center justify-between px-6 py-3">
-        <div class="flex items-center space-x-4" style="width: 30%">
-            
-            <!-- Ini Untuk Memilih Staff dan Menyimpan Staff dari Item Dropdown yang Dipilih -->
-            <select id="staff-switch" class="border border-gray-300 px-2 py-1 rounded"
-                onchange="activateStaff(this.value)">
-                <option value="">Pilih Staff</option>
-                @foreach ($staffs as $staff)
-                    <option value="{{ $staff->id }}">{{ $staff->name }}</option>
-                @endforeach
-            </select>
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 min-h-screen relative">
+    <!-- Navigation -->
+    <nav class="nav-glass shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Left Section - Staff Controls -->
+                <div class="flex items-center space-x-6" style="width: 35%">
+                    <!-- Staff Selection -->
+                    <div class="relative">
+                        <select id="staff-switch" 
+                                class="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md"
+                                onchange="activateStaff(this.value)">
+                            <option value="">Pilih Staff</option>
+                            @foreach ($staffs as $staff)
+                                <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
 
-            <!-- Ini Untuk Tombol Toggle, Fungsi Untuk Membuat Status Staff Aktif dan Non-aktif -->
-            <label class="inline-flex items-center cursor-pointer">
-                <input type="checkbox" id="toggle-active" class="sr-only" onchange="toggleActiveStatus()">
-                <div id="toggle-track" class="w-11 h-6 bg-gray-300 rounded-full relative transition duration-300">
-                    <div id="toggle-dot" class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition">
+                    <!-- Status Toggle -->
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="toggle-active" class="sr-only" onchange="toggleActiveStatus()">
+                        <div id="toggle-track" class="w-12 h-6 bg-gray-300 rounded-full relative transition duration-300 shadow-inner">
+                            <div id="toggle-dot" class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition duration-300 shadow-md"></div>
+                        </div>
+                        <span id="toggle-label" class="ml-3 text-sm font-medium text-gray-700">Tidak Aktif</span>
+                    </label>
+                </div>
+
+                <!-- Center Section - Logo -->
+                <div class="flex items-center space-x-4">
+                    <img src="/indibiz.png" alt="Logo" class="h-16 w-auto animate-slide-in">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        Antrian Digital
                     </div>
                 </div>
-                <span id="toggle-label" class="ml-2 text-sm text-gray-700">Tidak Aktif</span>
-            </label>
 
-        </div>
-
-        <div class="flex space-x-6">
-            <img src="/unnamed.png" alt="Logo" class="h-8" style="height: 77px">
-        </div>
-
-        <div class="flex justify-end items-center space-x-4" style="width: 30%">
-            <a href="{{ route('dashboard') }}"
-                class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                Dashboard
-            </a>
-            <a href="{{ route('queue') }}"
-                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                Queue
-            </a>
-            <a href="{{ url('/') }}"
-                class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
-                Log Out
-            </a>
+                <!-- Right Section - Navigation Links -->
+                <div class="flex items-center space-x-4" style="width: 35%; justify-content: flex-end;">
+                    <a href="{{ route('dashboard') }}"
+                        class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        Dashboard
+                    </a>
+                    <a href="{{ route('queue') }}"
+                        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        Queue
+                    </a>
+                    <a href="{{ url('/') }}"
+                        class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Log Out
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="p-6">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-6 animate-fade-in-up">
         @yield('content')
     </main>
 
@@ -83,7 +114,7 @@
                 label.textContent = "Tidak Aktif";
                 track.classList.add('bg-gray-300');
                 track.classList.remove('bg-green-500');
-                dot.classList.remove('translate-x-5');
+                dot.classList.remove('translate-x-6');
                 return;
             }
 
@@ -100,12 +131,12 @@
                         label.textContent = "Aktif";
                         track.classList.remove('bg-gray-300');
                         track.classList.add('bg-green-500');
-                        dot.classList.add('translate-x-5');
+                        dot.classList.add('translate-x-6');
                     } else {
                         label.textContent = "Tidak Aktif";
                         track.classList.add('bg-gray-300');
                         track.classList.remove('bg-green-500');
-                        dot.classList.remove('translate-x-5');
+                        dot.classList.remove('translate-x-6');
                     }
                 })
                 .catch(err => {
@@ -114,7 +145,7 @@
                     label.textContent = "Tidak Aktif";
                     track.classList.add('bg-gray-300');
                     track.classList.remove('bg-green-500');
-                    dot.classList.remove('translate-x-5');
+                    dot.classList.remove('translate-x-6');
                 });
         }
 

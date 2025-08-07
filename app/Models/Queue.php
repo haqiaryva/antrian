@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Queue extends Model
 {
     protected $fillable = ['queue_number', 'type', 'status'];
+    
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }
