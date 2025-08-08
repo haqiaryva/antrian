@@ -226,7 +226,7 @@
                 doneBtn.disabled = true;
                 doneBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-                const finishText = 'Antrian selesai. Terima Kasih Sudah Menggunakan Pelayanan Kami.';
+                const finishText = 'Antrian selanjutnya.';
                 queueNumberEl.textContent = finishText;
                 queueNumberEl.className = 'mb-4 min-h-[4rem] flex items-center justify-center text-xl font-semibold text-green-600';
                 speakText(finishText);

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('queues', function (Blueprint $table) {
             $table->id();
             $table->string('queue_number')->unique(); // R001 / W001
-            $table->enum('type', ['R', 'W']);         // Jenis antrian
+            $table->har('type', 1)->default('A'); // Jenis antrian
             $table->enum('status', ['waiting', 'called', 'done'])->default('waiting');
             $table->timestamps();
         });
