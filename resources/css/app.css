@@ -49,15 +49,53 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Navigation Styles */
+/* Navigation Styles - IMPROVED */
 .nav-glass {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    position: relative;
-    z-index: 1000;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98); /* Lebih solid */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 9999 !important; /* Increased z-index */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+/* SOLUTION: Add padding-top to body or main content */
+body {
+    padding-top: 80px; /* Default mobile navbar height */
+}
+
+/* Responsive padding for different screen sizes */
+@media (min-width: 768px) {
+    body {
+        padding-top: 96px; /* Larger navbar on desktop */
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        padding-top: 88px; /* Fine-tune for large screens */
+    }
+}
+
+/* Alternative: If you prefer to style main instead of body */
+/*
+main {
+    padding-top: 80px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    main {
+        padding-top: 96px;
+    }
+}
+*/
 
 /* Ensure content is not transparent */
 main {
@@ -147,4 +185,25 @@ main {
     80%, 100% {
         content: '...';
     }
+}
+
+/* Additional fixes for scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure navbar stays on top during transitions */
+.nav-glass * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Fix for dropdown menus if any */
+.dropdown-menu {
+    z-index: 10000;
+}
+
+/* Ensure modal overlays are above navbar if needed */
+.modal-overlay {
+    z-index: 10001;
 }

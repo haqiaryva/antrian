@@ -11,37 +11,25 @@ use App\Services\QueueService;
 
 class QueueController extends Controller
 {
-    // Ini Untuk Inisialisasi agar Dapat Menggunakan QueueService.php
     protected $service;
-    public function __construct(QueueService $service)
+    public function __construct(QueueService $Service)
     {
-        $this->service = $service;
+        $this->service = $Service;
     }
 
     // Untuk Menyimpan Antrian yang Diinput Klien
     public function store(Request $request)
     {
-        // Pengecekan Data yang Masuk Harus Format W atau R
-        $validator = Validator::make($request->all(), [
-            'type' => 'required|in:R,W',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Tipe antrian harus R (reservasi) atau W (walk-in)',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $type = $request->input('type');
-
-        // Untuk Ambil nomor terakhir dari jenis yang sama (misal R001, ambil "001")
+        // Karena sekarang hanya satu jenis antrian, kita tidak perlu validasi type
+        $type = 'A'; // 'A' untuk antrian umum (general queue)
+        
+        // Untuk Ambil nomor terakhir dari antrian hari ini
         $lastQueue = Queue::where('type', $type)
             ->whereDate('created_at', now()->toDateString())
             ->orderBy('queue_number', 'desc')
             ->first();
 
-        // Untuk Menambah Number agar Menjadi R001, R002, R003, dst.../W001, W002, dst...
+        // Untuk Menambah Number agar Menjadi A001, A002, A003, dst...
         $nextNumber = 1;
 
         if ($lastQueue) {
@@ -52,7 +40,7 @@ class QueueController extends Controller
         // Format Number Agar Memiliki 3 Digit
         $formattedNumber = $type . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-        // Buat Antrian ke Tabel Berdasarkan Urutan yang Sudah Diproses di Atas Menggunakan $formattedNumber dan $type
+        // Buat Antrian ke Tabel
         $queue = Queue::create([
             'queue_number' => $formattedNumber,
             'type' => $type,

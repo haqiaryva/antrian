@@ -100,7 +100,7 @@
         <!-- Footer -->
         <div class="mt-8 md:mt-12 text-center">
             <p class="text-xs md:text-sm text-gray-500">
-                © 2024 Antrian Digital. Sistem antrian modern untuk pelayanan yang lebih baik.
+                © 2025 Antrian Digital. Sistem antrian Indibiz.
             </p>
         </div>
     </div>

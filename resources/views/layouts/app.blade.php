@@ -10,13 +10,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+        }
+        
+        /* Navbar solid */
+        .navbar-solid {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 min-h-screen relative">
-    <!-- Navigation -->
-    <nav class="nav-glass shadow-lg sticky top-0 z-50">
+    <!-- Navigation - Changed to solid navbar -->
+    <nav class="navbar-solid fixed top-0 left-0 right-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <!-- Left Section - Staff Controls -->
@@ -50,8 +66,8 @@
 
                 <!-- Center Section - Logo -->
                 <div class="flex items-center space-x-4">
-                    <img src="/indibiz.png" alt="Logo" class="h-16 w-auto animate-slide-in">
-                    <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <img src="/indibiz.png" alt="Logo" class="h-12 w-auto">
+                    <div class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         Antrian Digital
                     </div>
                 </div>
@@ -59,21 +75,21 @@
                 <!-- Right Section - Navigation Links -->
                 <div class="flex items-center space-x-4" style="width: 35%; justify-content: flex-end;">
                     <a href="{{ route('dashboard') }}"
-                        class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow hover:shadow-md text-sm">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                         Dashboard
                     </a>
                     <a href="{{ route('queue') }}"
-                        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow hover:shadow-md text-sm">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                         </svg>
                         Queue
                     </a>
                     <a href="{{ url('/') }}"
-                        class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow hover:shadow-md text-sm">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
@@ -85,10 +101,11 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto p-6 animate-fade-in-up">
+    <main class="max-w-7xl mx-auto p-6">
         @yield('content')
     </main>
 
+    <!-- Script tetap sama -->
     <script>
         // Fungsi untuk Menyimpan Staff yang Dipilih dari Dropdown
         document.addEventListener('DOMContentLoaded', function () {
@@ -144,8 +161,8 @@
                     toggle.checked = false;
                     label.textContent = "Tidak Aktif";
                     track.classList.add('bg-gray-300');
-                    track.classList.remove('bg-green-500');
-                    dot.classList.remove('translate-x-6');
+                        track.classList.remove('bg-green-500');
+                        dot.classList.remove('translate-x-6');
                 });
         }
 
